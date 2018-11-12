@@ -36,13 +36,31 @@ keys.addEventListener('click', function (e) {
 
     // check if its a number button
     if (!action) {
-      // if the displayed number is 0 or the previos key was and operator we want to replace it with the new number clicked
-      if (displayedNum === '0' || previousKeyType === 'operator') {
+      // if the displayed number is 0 or the previos key was and operator we want to replace it with the new number clicked or the complete calculation
+      if (displayedNum === '0' ||
+      previousKeyType === 'operator' ||
+      previousKeyType === 'calculate') {
         display.textContent = keyContent
       // if it not a 0 append clicked keys
       } else {
         display.textContent = displayedNum + keyContent
       }
+      // update previous key type after wach click to number
+      calculator.dataset.previousKeyType = 'number';
+    }
+
+    // check if its the decimal button and add decimal to displayed number
+    if (action === 'decimal') {
+      if (!displayedNum.includes('.')) {
+        display.textContent = displayedNum + '.'
+      } else if (
+        previousKeyType === 'operator' ||
+        previousKeyType === 'calculate')
+      {
+        display.textContent = '0.';
+      }
+      // update previous key type after wach click to decimal
+      calculator.dataset.previousKeyType = 'decimal';
     }
 
     // check if its an operator button and if its pressed add class to show its been pressed
@@ -52,6 +70,23 @@ keys.addEventListener('click', function (e) {
       action === 'multiply' ||
       action === 'divide'
     ) {
+      var firstValue = calculator.dataset.firstValue;
+      var operator = calculator.dataset.operator;
+      var secondValue = displayedNum;
+      // if a number, an operator, a number and another operator is hit then the display should be updated to a calculated value.
+      if (
+      firstValue &&
+      operator &&
+      previousKeyType !== 'operator' &&
+      previousKeyType !== 'calculate')
+      {
+        var calcValue = calculate(firstValue, operator, secondValue);
+        display.textContent = calcValue;
+        calculator.dataset.firstValue = calcValue;
+      } else {
+        calculator.dataset.firstValue = displayedNum;
+      }
+
       key.classList.add('is-depressed')
       // add custome attribute to tell if previous pressed button was an operator
       calculator.dataset.previousKeyType = 'operator';
@@ -59,11 +94,6 @@ keys.addEventListener('click', function (e) {
       calculator.dataset.firstValue = displayedNum;
       // the operator being used
       calculator.dataset.operator = action
-    }
-
-    // check if its the decimal button and add decimal to displayed number
-    if (action === 'decimal') {
-      display.textContent = displayedNum + '.'
     }
 
     // check if its the clear button
