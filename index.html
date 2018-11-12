@@ -2,9 +2,35 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>itech calculator</title>
+    <link rel="stylesheet" href="styles/css/main.min.css">
   </head>
   <body>
-
+    <div class="container">
+      <div class="calculator">
+        <div class="calculator__display">0</div>
+        <div class="calculator__keys">
+          <button class="key--red" data-action="clear">AC</button>
+          <button class="key--save key--red" data-action="save">SAVE</button>
+          <button class="key--operator" data-action="divide">÷</button>
+          <button data-action="decimal">.</button>
+          <button>0</button>
+          <span></span>
+          <button class="key--operator" data-action="multiply">&times;</button>
+          <button>1</button>
+          <button>2</button>
+          <button>3</button>
+          <button class="key--operator" data-action="subtract">-</button>
+          <button>4</button>
+          <button>5</button>
+          <button>6</button>
+          <button class="key--operator" data-action="add">+</button>
+          <button>7</button>
+          <button>8</button>
+          <button>9</button>
+          <button class="key--equal" data-action="calculate">=</button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
