@@ -1,17 +1,11 @@
 // calculate function
 var calculate = function calculate(n1, operator, n2) {
- var result = '';
- if (operator === 'add') {
-   result = parseFloat(n1) + parseFloat(n2);
- } else if (operator === 'subtract') {
-   result = parseFloat(n1) - parseFloat(n2);
- } else if (operator === 'multiply') {
-   result = parseFloat(n1) * parseFloat(n2);
- } else if (operator === 'divide') {
-   result = parseFloat(n1) / parseFloat(n2);
- }
-
- return result;
+ var firstNum = parseFloat(n1);
+ var secondNum = parseFloat(n2);
+ if (operator === 'add') return firstNum + secondNum;
+ if (operator === 'subtract') return firstNum - secondNum;
+ if (operator === 'multiply') return firstNum * secondNum;
+ if (operator === 'divide') return firstNum / secondNum;
 };
 
 var calculator = document.querySelector('.calculator');
