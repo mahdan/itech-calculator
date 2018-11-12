@@ -96,18 +96,46 @@ keys.addEventListener('click', function (e) {
       calculator.dataset.operator = action
     }
 
-    // check if its the clear button
+    // if the action is clear set to 0 or clear entry
     if (action === 'clear') {
-      console.log('clear key!')
+      // if Ac is clicked clear all stored values and operators
+      if (key.textContent === 'AC') {
+        calculator.dataset.firstValue = '';
+        calculator.dataset.modValue = '';
+        calculator.dataset.operator = '';
+        calculator.dataset.previousKeyType = '';
+      // if CE is pressed set text to AC
+      } else {
+        key.textContent = 'AC';
+      }
+
+      display.textContent = 0;
+      calculator.dataset.previousKeyType = 'clear';
+    }
+
+    // if the action is not clear changed text to CE
+    if (action !== 'clear') {
+      var clearButton = calculator.querySelector('[data-action=clear]');
+      clearButton.textContent = 'CE';
     }
 
     // check if its the calculate button and do calculation
     if (action === 'calculate') {
-      var firstValue = calculator.dataset.firstValue;
-      var operator = calculator.dataset.operator;
-      var secondValue = displayedNum;
-      // display calculation
-      display.textContent = calculate(firstValue, operator, secondValue);
+      var _firstValue = calculator.dataset.firstValue;
+      var _operator = calculator.dataset.operator;
+      var _secondValue = displayedNum;
+      // first value is set then calculate
+      if (_firstValue) {
+        if (previousKeyType === 'calculate') {
+          _firstValue = displayedNum;
+          _secondValue = calculator.dataset.modValue;
+        }
+        // display calculation
+        display.textContent = calculate(_firstValue, _operator, _secondValue);
+      }
+
+      calculator.dataset.modValue = _secondValue;
+      calculator.dataset.previousKeyType = 'calculate';
     }
   }
 })
