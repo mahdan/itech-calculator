@@ -1,0 +1,29 @@
+@import 'themes';
+@import 'breakpoints';
+
+$main-font: Georgia, 'Times New Roman', serif;
+$secondary-font: Tahoma, Arial, Helvetica, sans-serif;
+
+h1,
+h2,
+h3 {
+  color: $orange;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 40px;
+
+  @media screen and (max-width: $break-medium) {
+    font-size: 32px;
+  }
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 14px;
+  font-weight: bold;
+}
